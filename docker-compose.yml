@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  ng1:
+    image: nginx
+    ports:
+      - "3000:80"
+    networks:
+      - nginx_net
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+  node1:
+    image: nginx
+    container_name: node1
+    ports:
+      - "80"
+    volumes:
+      - ./app1/index.html:/usr/share/nginx/html/index.html
+    networks:
+      - nginx_net
+  node2:
+    image: nginx
+    container_name: node2
+    ports:
+      - "8080"
+    volumes:
+      - ./app2/index.html:/usr/share/nginx/html/index.html
+    networks:
+      - nginx_net
+networks:
+  nginx_net:
+    driver: bridge
